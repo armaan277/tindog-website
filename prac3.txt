@@ -1,0 +1,29 @@
+Practical No 3:- Configure, Apply and Verify an Extended Numbered ACL 
+
+Acess Control List means -> Particular area access
+In this Practical We take the 2911 Router This router Take 3 Ports 
+
+After Completing the topology:-
+Go in Router 
+access-list means to give the permission 100 permit means Wired to  Wired Connection
+
+Router(config)#access-list 100 permit tcp 172.22.34.64 0.0.0.31 host 172.22.34.62 eq ->(OPTIONAL(?)) ftp -> Heat Enter
+
+Router(config)#access-list 100 permit icmp 172.22.34.64 0.0.0.31 host 172.22.34.62 -> Heat Enter
+
+Router(config)#interface gigabitEthernet0/0
+
+Router(config)#ip access-group 100 in -> After Heat Enter It is Not Connect to each other.
+
+Let's try -> PC1 -> Go in Prompt -> ping 172.22.34.62 -> Heat Enter
+Let's try FTP -> ftp 172.22.34.62 -> Heat Enter
+Username:cisco
+Password:cisco
+Output:-
+Logged in
+(Passive mode on)
+
+
+
+
+

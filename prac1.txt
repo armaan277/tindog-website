@@ -1,0 +1,49 @@
+Practical 1:
+
+a) OSPF MD5 authentication. 
+MD5 or Message-Digest Algorithm authentication is basically hashing algorithm like password to encrypt.
+Only Perform Command:-
+
+Go to Router 0 -> Then go in CLI -> go in config mode -> simply right r1#config -> then it is come in config mode -> 
+Then write -> router ospf 1 Heat Enter -> area 0 authentication message-digest Heat Enter -> Then one time ex ->
+interface s0/0/0 Heat Enter -> ip ospf message-digest-key 1 md5 aryan Heat Enter.
+Same Step in Router 1 -> s0/0/1 and Router 2 -> s0/0/1.
+
+How we can after adding this command whether it is successfully conneced or not.
+We can full exit -> Then Write one command -> r1> show ip ospf interface Heat Enter -> There are lots of details come in cli then it SuccessFully Con.
+Same R1 and R2.
+
+Part 1 is done -> All 3 routers are completed hashing part means password are stored -> OPEN SHORTEST PATH FIRST it is used in to password strored in excrypt form.
+It is  finding the shortest root to add the password.
+
+
+
+
+b) Configuring NTP.
+NTP means we can set the time, NTP stand for Network Time Protocal.
+In R0 cli -> r1# show clock
+In R1 cli -> r1# show clock
+In R2 cli -> r1# show clock
+
+How we can check NTP Time Steps we can follow:-
+r0>en
+r0#show clock
+r0#config
+r0(config)#ntp server 192.168.1.5
+r0(config)#ntp update-calendar
+r0(config)#ntp authenticate
+r0(config)#ntp trusted-key 1
+r0(config)#ntp authentication-key 1 md5 aryan
+Above step set the clock Let's Check the clock.
+
+r0#show clock
+When We instantly time it is not showing the time we can go in topology and click in fast forward.
+
+
+
+c) To Log Messages To The Syslog Server. 
+Central Repository store the data like GitHub, We can push the data and store CD.
+
+How can i perform this practical :-
+Go in router -> Go in CLI -> r1>en -> r1#config -> r1(config)#service timestamps log datetime msec -> logging host 192.168.1.5 -> r1(config)#ex.
+Complete this is the simply we can share the data in Syslog.

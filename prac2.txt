@@ -1,0 +1,71 @@
+Practical No:- 2. Configure AAA Authentication 
+
+AAA stands for Authentication Authorization Accounting
+Authentication -> Email, Pass
+Authorization -> What is the role of that user
+Accounting -> Means Monitoring.
+Simply means user can try to login, That time it can enter login and password.
+
+Configure AAA Authentication
+Go in Router1 ->
+Router(config)#username armaan secret ar
+Router(config)#aaa new-model
+Router(config)#aaa authentication login default local
+Router(config)#line console 0
+Router(config)#login authentication default
+exit
+ex
+Username:armaan
+password:ar
+
+2a) Configure a local user account on Router and configure authenticate on the console and vty lines using local AAA.
+
+Go in Router :-
+ip domain-name armaan.com
+r2(config)#crypto key generate rsa
+The name for the keys will be: r2.armaan.com
+Choose the size of the key modulus in the range of 360 to 4096 for your
+  General Purpose Keys. Choosing a key modulus greater than 512 may take
+  a few minutes.
+
+How many bits in the modulus [512]: 1024
+% Generating 1024 bit RSA keys, keys will be non-exportable...[OK]
+
+r2(config)#aaa authen
+*Mar 1 0:36:24.708: %SSH-5-ENABLED: SSH 1.99 has been enabled
+r2(config)#aaa authentication login SSH_ARMAAN local
+r2(config)#line vty 0 4
+r2(config-line)#login authentication SSH_ARMAAN
+r2(config-line)#transport input ssh
+
+Then Go in PC-A
+Wirte this command -> ssh -l arman 198.168.1.1
+password:
+r1>it is access
+
+
+
+2b) Verify local AAA authentication from the Router console and the PC-A client 
+The first step is to add the server ->
+client name -> armaan     client IP -> 192.168.8.1
+secret -> khan            ST -> Radius
+Add
+
+Scroll Down
+Username -> armaan 	  Password -> khan
+Add
+
+
+In R1,R2,R3, we can check the server username and password 
+R1>en
+R1>config
+Router(config)#username armaan secret khan
+Router(config)#radius-server host 192.168.8.1
+Router(config)#aaa new-model 
+Router(config)#aaa authentication login default group radius local
+Router(config)#line console 0
+Router(config-line)#login authentication default
+Router(config-line)#end
+
+
+
