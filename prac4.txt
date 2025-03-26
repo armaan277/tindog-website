@@ -1,0 +1,51 @@
+Practical 4:- Configure IP ACLs to Mitigate Attacks and IPV6 ACLs 
+
+In this practical we are trying to load low in server.
+
+Part1: erify connectivity among devices before firewall configuration. 
+In R2 We are add the IP address, When we are adding in router IP Add then it is called lo interface.
+How we can add lo back IP add
+r2(config)#interface loopback 0
+r2(config-if)#ip address 192.168.2.1 255.255.255.0
+We can hover in R2 it is show the loopback.
+
+We are blocking the access
+r2(config-if)#ip domain-name armaan.com
+r2(config-if)#crypto key generate rsa
+1024
+r2(config)#username armaan privilage 15 secret arm
+r2(config)#line vty 0 4
+r2(config-line)#login local
+r2(config-line)#transport input ssh
+
+
+Go in Server OR PC-A
+Open CMD Prompt
+ssh -l armaan 192.168.2.1
+password: arm
+r2#
+
+Part2: Use ACLs to ensure remote access to the routers is available only from management station PC-C. 
+In part2 we can perform all 3 routers
+Go in R0
+r1(config)#access-list 10 permit host 198.168.3.3
+r1(config)#line vty 0 4
+r1(config)#access-class 10 in
+Same step R1,R2
+
+Go in PC-C -> GO in CMD 
+ssh -l armaan 192.168.2.1
+It is accessible
+
+Part3: Configure ACLs on to mitigate attacks. 
+full exit in CLI Then Paste
+R1(config)# access-list 120 permit udp any host 192.168.1.3 eq domain  
+R1(config)# access-list 120 permit tcp any host 192.168.1.3 eq smtp  
+R1(config)# access-list 120 permit tcp any host 192.168.1.3 eq ftp  
+R1(config)# access-list 120 deny tcp any host 192.168.1.3 eq 443  
+R1(config)# access-list 120 permit tcp host 192.168.3.3 host 10.1.1.1 eq 22 
+The hole part copy and paste in R0
+then -> initerface s0/0/0
+ip access-group 120 in
+PCB can't access the PCA packet transfering
+
